@@ -1,7 +1,7 @@
-defmodule NervesSystemRpi3.MixProject do
+defmodule ValiotSystemRpi3.MixProject do
   use Mix.Project
 
-  @app :nerves_system_rpi3
+  @app :valiot_system_rpi3
   @version Path.join(__DIR__, "VERSION")
            |> File.read!()
            |> String.trim()
@@ -34,9 +34,9 @@ defmodule NervesSystemRpi3.MixProject do
   defp nerves_package do
     [
       type: :system,
-      artifact_sites: [
-        {:github_releases, "nerves-project/#{@app}"}
-      ],
+      # artifact_sites: [
+      #   {:github_releases, "nerves-project/#{@app}"}
+      # ],
       build_runner_opts: build_runner_opts(),
       platform: Nerves.System.BR,
       platform_config: [
@@ -64,10 +64,10 @@ defmodule NervesSystemRpi3.MixProject do
 
   defp package do
     [
-      maintainers: ["Frank Hunleth", "Justin Schneck"],
+      maintainers: ["Aldebaran Alonso", "Rocío Alvarado", "Valiot"],
       files: package_files(),
       licenses: ["Apache 2.0"],
-      links: %{"GitHub" => "https://github.com/nerves-project/#{@app}"}
+      links: %{"GitHub" => "https://github.com/valiot/#{@app}"}
     ]
   end
 
@@ -109,7 +109,7 @@ defmodule NervesSystemRpi3.MixProject do
     if function_exported?(Mix, :target, 1) do
       apply(Mix, :target, [:target])
     else
-      System.put_env("MIX_TARGET", "target")
+      System.put_env("MIX_TARGET", "valiot_rpi3")
     end
   end
 end
