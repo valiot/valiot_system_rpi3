@@ -42,6 +42,9 @@ dtoverlay=dwc2
 # Add a can0 spi overlay
 dtoverlay=mcp2515-can0,oscillator=10000000,interrupt=23
 
+# Add a sc16is750 for i2c overlay
+dtoverlay=sc16is750-i2c,int_pin=22,addr=0x4D
+
 # The ramoops overlay works with the pstore driver to preserve crash
 # information across reboots in DRAM
 dtoverlay=ramoops
