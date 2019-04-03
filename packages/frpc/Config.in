@@ -1,0 +1,6 @@
+config BR2_PACKAGE_FRPC
+    bool "frpc"
+    help
+      A FRP client for ARM's (precompilated).
+
+      https://github.com/fatedier/frp

@@ -2,3 +2,6 @@
 #
 # If these are non-proprietary, please consider contributing them back to
 # Nerves or Buildroot.
+
+# Load external packages
+source "$NERVES_DEFCONFIG_DIR/packages/frpc/Config.in"
