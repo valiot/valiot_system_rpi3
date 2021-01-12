@@ -1,0 +1,6 @@
+config BR2_PACKAGE_CLOUDFLARED
+    bool "cloudflared"
+    help
+      Argo Tunnel client (precompilated for armv6).
+
+      https://github.com/cloudflare/cloudflared
