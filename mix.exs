@@ -49,15 +49,24 @@ defmodule ValiotSystemRpi3.MixProject do
       platform_config: [
         defconfig: "nerves_defconfig"
       ],
+      # The :env key is an optional experimental feature for adding environment
+      # variables to the crosscompile environment. These are intended for
+      # llvm-based tooling that may need more precise processor information.
+      env: [
+        {"TARGET_ARCH", "arm"},
+        {"TARGET_CPU", "cortex_a53"},
+        {"TARGET_OS", "linux"},
+        {"TARGET_ABI", "gnueabihf"}
+      ],
       checksum: package_files()
     ]
   end
 
   defp deps do
     [
-      {:nerves, "~> 1.5.4 or ~> 1.6.0 or ~> 1.7.0", runtime: false},
-      {:nerves_system_br, "1.14.0", runtime: false},
-      {:nerves_toolchain_arm_unknown_linux_gnueabihf, "~> 1.3.0", runtime: false},
+      {:nerves, "~> 1.5.4 or ~> 1.6.0 or ~> 1.7.4", runtime: false},
+      {:nerves_system_br, "1.15.1", runtime: false},
+      {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 1.4.2", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
     ]
