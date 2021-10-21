@@ -1,5 +1,99 @@
 # Changelog
 
+This project does NOT follow semantic versioning. The version increases as
+follows:
+
+1. Major version updates are breaking updates to the build infrastructure.
+   These should be very rare.
+2. Minor version updates are made for every major Buildroot release. Buildroot
+   makes four releases a year. Major Erlang/OTP updates are held off until the
+   next Buildroot release.
+3. Patch version updates are made for Buildroot minor releases and Erlang/OTP
+   minor and patch releases. They're also made to fix bugs and add features to
+   the build infrastructure.
+
+## v1.17.2
+
+This is a security/bug fix patch release. It should be safe to update for
+everyone.
+
+* Updated dependencies
+  * [nerves_system_br v1.17.1](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.17.1)
+  * [Buildroot 2021.08.1](http://lists.busybox.net/pipermail/buildroot/2021-October/625642.html)
+  * [Erlang/OTP 24.1.2](https://erlang.org/download/OTP-24.1.2.README)
+
+* Improvements
+  * Include software versioning and licensing info (see legal-info directory in
+    artifact)
+
+## v1.17.1
+
+This release makes it possible to use Bluetooth (via ttyS0).
+
+* Changes
+  * Force the GPU frequency (core_freq) to ensure that the MiniUART works. This makes
+    it possible to use BlueHeron or other Bluetooth libraries.
+  * Re-add the RPi 7" Touchscreen backlight drivers. Thanks to Jason Axelson for catching
+    this and adding the drivers back.
+
+## v1.17.0
+
+This release updates to Buildroot 2021.08 and OTP 24.1. If you have made a
+custom system off this one, please review the `nerves_system_br v1.17.0` release
+notes.
+
+* Updated dependencies
+  * [nerves_system_br v1.17.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.17.0)
+  * [Buildroot 2021.08](http://lists.busybox.net/pipermail/buildroot/2021-September/622072.html)
+  * [Erlang/OTP 24.1](https://erlang.org/download/OTP-24.1.README)
+
+## v1.16.2
+
+This release updates Erlang/OTP from 24.0.3 to 24.0.5 and Buildroot from 2021.05
+to 2021.05.1. Both of these are security/bug fix updates. This is expected to be
+a safe upgrade from v1.16.1 for all users.
+
+* Updated dependencies
+  * [nerves_system_br v1.16.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.16.1)
+  * [Erlang/OTP 24.0.5](https://erlang.org/download/OTP-24.0.5.README)
+
+* Improvements
+  * Beta support for using a `runtime.exs` script for runtime configuration.
+  * Added a `provision` task to the `fwup.config` to enable re-provisioning a
+    MicroSD card without changing its contents.
+  * Adds a default `/etc/sysctl.conf` that enables use of ICMP in Erlang. This
+    requires `nerves_runtime v0.11.5` or later to automatically load the sysctl
+    variables. With it using `:gen_udp` to send/receive ICMP will "just work".
+    It also makes it easier to add other sysctl variables if needed.
+
+## v1.16.1
+
+This release updates Nerves Toolchains to v1.4.3 and OTP 24.0.3. It should be safe for everyone to apply.
+
+* Updated dependencies
+  * [nerves_system_br v1.16.1](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.16.1)
+  * [Erlang/OTP 24.0.3](https://erlang.org/download/OTP-24.0.3.README)
+  * [nerves toolchains v1.4.3](https://github.com/nerves-project/toolchains/releases/tag/v1.4.3)
+
+## v1.16.0
+
+This release updates to Buildroot 2021.05 and OTP 24.0.2. If you have made a
+custom system off this one, please review the `nerves_system_br v1.16.0` release
+notes.
+
+* Updated dependencies
+  * [nerves_system_br v1.16.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.16.0)
+  * [Buildroot 2021.05](http://lists.busybox.net/pipermail/buildroot/2021-June/311946.html)
+  * [Erlang/OTP 24.0.2](https://erlang.org/download/OTP-24.0.2.README)
+
+* Improvements
+  * This release now contains debug symbols and includes the Build-ID in the
+    ELF headers. This makes it easier to get stack traces from C programs. As
+    before, the Nerves tooling strips all symbols from firmware images, so this
+    won't make programs bigger.
+  * Enable compile-time `wpa_supplicant` options to support WPA3, mesh
+    networking, WPS and autoscan.
+
 ## v1.15.1
 
 This is a security/bug fix release that updates to Buildroot 2021.02.1 and OTP
