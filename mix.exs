@@ -18,7 +18,7 @@ defmodule ValiotSystemRpi3.MixProject do
       description: description(),
       package: package(),
       deps: deps(),
-      aliases: [loadconfig: [&bootstrap/1], docs: ["docs", &copy_images/1]],
+      aliases: [loadconfig: [&bootstrap/1]],
       docs: docs(),
       preferred_cli_env: %{
         docs: :docs,
@@ -56,7 +56,9 @@ defmodule ValiotSystemRpi3.MixProject do
         {"TARGET_ARCH", "arm"},
         {"TARGET_CPU", "cortex_a53"},
         {"TARGET_OS", "linux"},
-        {"TARGET_ABI", "gnueabihf"}
+        {"TARGET_ABI", "gnueabihf"},
+        {"TARGET_GCC_FLAGS",
+         "-mabi=aapcs-linux -mfpu=neon-vfpv4 -marm -fstack-protector-strong -mfloat-abi=hard -mcpu=cortex-a53 -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
       ],
       checksum: package_files()
     ]
@@ -64,9 +66,9 @@ defmodule ValiotSystemRpi3.MixProject do
 
   defp deps do
     [
-      {:nerves, "~> 1.5.4 or ~> 1.6.0 or ~> 1.7.4", runtime: false},
-      {:nerves_system_br, "1.17.1", runtime: false},
-      {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 1.4.3", runtime: false},
+      {:nerves, "~> 1.5.4 or ~> 1.6.0 or ~> 1.7.15 or ~> 1.8.0", runtime: false},
+      {:nerves_system_br, "1.20.3", runtime: false},
+      {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 1.6.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
     ]
@@ -82,6 +84,7 @@ defmodule ValiotSystemRpi3.MixProject do
     [
       extras: ["README.md", "CHANGELOG.md"],
       main: "readme",
+      assets: "assets",
       source_ref: "v#{@version}",
       source_url: @source_url,
       skip_undefined_reference_warnings_on: ["CHANGELOG.md"]
@@ -92,7 +95,7 @@ defmodule ValiotSystemRpi3.MixProject do
     [
       maintainers: ["Aldebaran Alonso", "Rocío Alvarado", "Valiot"],
       files: package_files(),
-      licenses: ["Apache 2.0"],
+      licenses: ["Apache-2.0"],
       links: %{"GitHub" => @source_url}
     ]
   end
@@ -107,7 +110,7 @@ defmodule ValiotSystemRpi3.MixProject do
       "fwup-revert.conf",
       "fwup.conf",
       "LICENSE",
-      "linux-5.4.defconfig",
+      "linux-5.15.defconfig",
       "mix.exs",
       "nerves_defconfig",
       "post-build.sh",
@@ -116,11 +119,6 @@ defmodule ValiotSystemRpi3.MixProject do
       "README.md",
       "VERSION"
     ]
-  end
-
-  # Copy the images referenced by docs, since ex_doc doesn't do this.
-  defp copy_images(_) do
-    File.cp_r("assets", "doc/assets")
   end
 
   defp build_runner_opts() do

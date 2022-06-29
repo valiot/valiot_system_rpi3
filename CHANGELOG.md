@@ -5,12 +5,123 @@ follows:
 
 1. Major version updates are breaking updates to the build infrastructure.
    These should be very rare.
-2. Minor version updates are made for every major Buildroot release. Buildroot
-   makes four releases a year. Major Erlang/OTP updates are held off until the
-   next Buildroot release.
-3. Patch version updates are made for Buildroot minor releases and Erlang/OTP
-   minor and patch releases. They're also made to fix bugs and add features to
-   the build infrastructure.
+2. Minor version updates are made for every major Buildroot release. This
+   may also include Erlang/OTP and Linux kernel updates. These are made four
+   times a year shortly after the Buildroot releases.
+3. Patch version updates are made for Buildroot minor releases, Erlang/OTP
+   releases, and Linux kernel updates. They're also made to fix bugs and add
+   features to the build infrastructure.
+
+## v1.20.0
+
+This release updates to Buildroot 2022.05, Linux 5.15.32 (from Linux 5.10) and
+uses GCC 11.3 (from GCC 10.3). The Linux kernel upgrade could introduce a
+regression, so please verify hardware-specific functionality in your firmware.
+
+If you have cloned this repository for a custom system, please make sure that
+you have `CONFIG_NOP_USB_XCEIV=y` in your Linux kernel configuration.
+
+* Updated dependencies
+  * [nerves_system_br v1.20.3](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.20.3)
+  * [Buildroot 2022.05](http://lists.busybox.net/pipermail/buildroot/2022-June/644349.html)
+  * [Erlang/OTP 25.0.2](https://erlang.org/download/OTP-25.0.2.README)
+
+## v1.19.0
+
+This release updates to Buildroot 2022.02.1 and OTP 25.0. While this should be
+an easy update for most projects, many programs have been updated. Please review
+the changes in the updated dependencies for details.
+
+* Updated dependencies
+  * [nerves_system_br v1.19.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.19.0)
+  * [Buildroot 2022.02.1](http://lists.busybox.net/pipermail/buildroot/2022-April/640712.html). Also see [Buildroot 2022.02](http://lists.busybox.net/pipermail/buildroot/2022-March/638160.html)
+  * [Erlang/OTP 25.0](https://erlang.org/download/OTP-25.0.README)
+
+## v1.18.4
+
+This release bumps Erlang to 24.3.2 and should be a low risk upgrade from the
+previous release.
+
+* Changes
+  * Pull in upstream Linux SquashFS patch to improve file system performance
+
+* Updated dependencies
+  * [nerves_system_br v1.18.6](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.6)
+
+## v1.18.3
+
+This is a Buildroot and Erlang bug and security fix release. It should be a low
+risk upgrade from the previous release.
+
+* Updated dependencies
+  * [nerves_system_br v1.18.5](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.5)
+
+## v1.18.2
+
+This is a Buildroot and Erlang bug fix release. It should be a low risk upgrade
+from the previous release.
+
+* Updated dependencies
+  * [nerves_system_br v1.18.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.4)
+
+* Changes
+  * Specify CPU-specific flags when compiling NIFs and ports. This fixes an
+    issue where some optimizations could not be enabled in NIFs even though it
+    should be possible to have them. E.g., ARM NEON support for CPUs that have
+    it.
+  * Build the Wireguard kernel driver. This is a small device driver that
+    enables a number of VPN-based use cases.
+
+## v1.18.1
+
+* Updated dependencies
+  * [nerves_system_br v1.18.3](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.3)
+
+* Changes
+  * The `cpufreq` directories are available again. This was a regression that
+    would break code that manually adjusted the CPU frequency.
+  * Programs that use OpenMP will run now. The OpenMP shared library
+    (`libgomp.so`) was supplied by the toolchain, but not copied.
+
+## v1.18.0
+
+This release updates to Buildroot 2021.11 and OTP 24.2. If you have made a
+custom system, please review the `nerves_system_br` [release
+notes](https://github.com/nerves-project/nerves_system_br/blob/v1.18.2/CHANGELOG.md#v1180)
+since Buildroot 2021.11 changed some Raspberry Pi firmware options.
+
+* Updated dependencies
+  * [nerves_system_br v1.18.2](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.2)
+  * [Buildroot 2021.11](http://lists.busybox.net/pipermail/buildroot/2021-December/629911.html)
+  * [Erlang/OTP 24.2](https://erlang.org/download/OTP-24.2.README)
+  * [Raspberry Pi WiFi firmware](https://github.com/RPi-Distro/firmware-nonfree/blob/bullseye/debian/changelog)
+  * Linux 5.10.88 with Raspberry Pi patches
+  * GCC 10.3
+
+* Improvements
+  * Support for the `dl.nerves-project.org` backup site. Due to a GitHub outage
+    in November, there was a 2 day period of failing builds since some packages
+    could not be downloaded. We implemented the backup site to prevent this in
+    the future. This update is in the `nerves_defconfig`.
+  * Use new build ORB on CircleCI. This ORB will shorten build times to fit in
+    CircleCI's new free tier limits. Please update if building your own systems.
+
+## v1.17.4
+
+* Updated dependencies
+  * [nerves_system_br v1.17.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.17.4)
+  * [Buildroot 2021.08.2](http://lists.busybox.net/pipermail/buildroot/2021-November/628323.html)
+  * [Erlang/OTP 24.1.7](https://erlang.org/download/OTP-24.1.7.README).
+
+## v1.17.3
+
+This release updates the Linux kernel from 5.4 to 5.10 to follow the Raspberry
+Pi OS.
+
+* Updated dependencies
+  * [nerves_system_br v1.17.3](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.17.3)
+  * [Erlang/OTP 24.1.4](https://erlang.org/download/OTP-24.1.4.README).
+  * Linux 5.10.63 with Raspberry Pi patches
 
 ## v1.17.2
 
