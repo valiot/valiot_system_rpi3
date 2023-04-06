@@ -4,7 +4,7 @@
 #
 #############################################################
 
-FRPC_VERSION 		:= 0.43.0
+FRPC_VERSION 		:= 0.48.0
 FRPC_SOURCE 		:= frp_${FRPC_VERSION}_linux_arm.tar.gz
 FRPC_SITE 			:= https://github.com/fatedier/frp/releases/download/v$(FRPC_VERSION)
 FRPC_LICENSE 		:= Apache-2.0

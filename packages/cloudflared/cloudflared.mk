@@ -4,7 +4,7 @@
 #
 #############################################################
 
-CLOUDFLARED_VERSION 		:= 2022.10.0
+CLOUDFLARED_VERSION 		:= 2023.3.1
 CLOUDFLARED_SOURCE 			:= cloudflared-linux-arm
 CLOUDFLARED_SITE 			:= https://github.com/cloudflare/cloudflared/releases/download/$(CLOUDFLARED_VERSION)
 
