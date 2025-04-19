@@ -1,5 +1,5 @@
-config BR2_PACKAGE_CLOUDFLARED
-    bool "cloudflared"
+config BR2_PACKAGE_CLOUDFLARED_BIN
+    bool "cloudflared-bin"
     help
       Argo Tunnel client (precompilated for armv6).
 
