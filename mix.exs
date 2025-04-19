@@ -12,7 +12,8 @@ defmodule ValiotSystemRpi3.MixProject do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.6",
+      # Because we're using OTP 27, we need to enforce Elixir 1.17 or later.
+      elixir: "~> 1.17",
       compilers: Mix.compilers() ++ [:nerves_package],
       nerves_package: nerves_package(),
       description: description(),
@@ -58,7 +59,7 @@ defmodule ValiotSystemRpi3.MixProject do
         {"TARGET_OS", "linux"},
         {"TARGET_ABI", "gnueabihf"},
         {"TARGET_GCC_FLAGS",
-         "-mabi=aapcs-linux -mfpu=fp-armv8 -marm -fstack-protector-strong -mfloat-abi=hard -mcpu=cortex-a53 -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
+         "-mabi=aapcs-linux -mfpu=neon-fp-armv8 -marm -fstack-protector-strong -mfloat-abi=hard -mcpu=cortex-a53 -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
       ],
       checksum: package_files()
     ]
@@ -66,8 +67,8 @@ defmodule ValiotSystemRpi3.MixProject do
 
   defp deps do
     [
-      {:nerves, "~> 1.5.4 or ~> 1.6.0 or ~> 1.7.15 or ~> 1.8", runtime: false},
-      {:nerves_system_br, "1.27.0", runtime: false},
+      {:nerves, "~> 1.11", runtime: false},
+      {:nerves_system_br, "1.30.1", runtime: false},
       {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 13.2.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
@@ -76,7 +77,7 @@ defmodule ValiotSystemRpi3.MixProject do
 
   defp description do
     """
-    Nerves System - Raspberry Pi 3 B / B+
+    Nerves System - Raspberry Pi 3B, 3B+, Zero 2W
     """
   end
 
@@ -84,7 +85,7 @@ defmodule ValiotSystemRpi3.MixProject do
     [
       extras: ["README.md", "CHANGELOG.md"],
       main: "readme",
-      assets: "assets",
+      assets: %{"assets" => "./assets"},
       source_ref: "v#{@version}",
       source_url: @source_url,
       skip_undefined_reference_warnings_on: ["CHANGELOG.md"]
@@ -95,8 +96,12 @@ defmodule ValiotSystemRpi3.MixProject do
     [
       maintainers: ["Aldebaran Alonso", "Rocío Alvarado", "Valiot"],
       files: package_files(),
-      licenses: ["Apache-2.0"],
-      links: %{"GitHub" => @source_url}
+      licenses: ["GPL-2.0-only", "GPL-2.0-or-later"],
+      links: %{
+        "GitHub" => @source_url,
+        "REUSE Compliance" =>
+          "https://api.reuse.software/info/github.com/nerves-project/nerves_system_rpi3"
+      }
     ]
   end
 
@@ -109,14 +114,15 @@ defmodule ValiotSystemRpi3.MixProject do
       "config.txt",
       "fwup-ops.conf",
       "fwup.conf",
-      "LICENSE",
-      "linux-6.1.defconfig",
+      "LICENSES/*",
+      "linux-6.6.defconfig",
       "mix.exs",
       "nerves_defconfig",
       "post-build.sh",
       "post-createfs.sh",
       "ramoops.dts",
       "README.md",
+      "REUSE.toml",
       "VERSION"
     ]
   end
