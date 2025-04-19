@@ -5,7 +5,7 @@
 #############################################################
 
 CLOUDFLARED_BIN_VERSION 		:= 2025.2.1
-CLOUDFLARED_BIN_SOURCE 			:= cloudflared-linux-arm64
+CLOUDFLARED_SOURCE 				:= cloudflared-linux-arm
 CLOUDFLARED_BIN_SITE 			:= https://github.com/cloudflare/cloudflared/releases/download/$(CLOUDFLARED_BIN_VERSION)
 
 #There is no tarball package, it is a raw binary
